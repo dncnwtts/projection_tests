@@ -46,17 +46,9 @@ class HealpixAxes(GeoAxes):
             phi_c = -np.pi + (2*np.floor((longitude+np.pi)*H/(2*np.pi)+(1-omega)/2) + omega)*np.pi/H
 
             poles = base
-            x[poles] = phi_c[poles] + (longitude[poles]-phi_c[poles])*sigma[poles]**0.5
+            x[poles] = phi_c[poles] + (longitude[poles]-phi_c[poles])*sigma[poles]
             poles = cap
-            x[poles] = phi_c[poles] + (longitude[poles]-phi_c[poles])*sigma[poles]**0.5
-
-            phi_t = (longitude % (np.pi/2))
-            z = np.cos(latitude)
-            sigma = 2 - np.sqrt(3*(1-z))
-
-            #x[poles] = (longitude - (abs(sigma) - 1)*(phi_t-np.pi/4))[poles]
-            #y[poles] = np.pi/4*sigma[poles]
-
+            x[poles] = phi_c[poles] + (longitude[poles]-phi_c[poles])*sigma[poles]
 
             return np.column_stack([x, y])
 
@@ -168,6 +160,7 @@ if __name__ == '__main__':
         #projview(m, projection_type='mollweide', graticule=True,
             #graticule_labels=True)
         #projview(m, projection_type='hammer', graticule=True, graticule_labels=True)
+        projview(m, projection_type='custom_hammer', graticule=True, graticule_labels=True)
         projview(m, projection_type='healpix', graticule=True, graticule_labels=True)
         plt.show()
 
