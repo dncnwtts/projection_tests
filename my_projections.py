@@ -161,5 +161,7 @@ if __name__ == '__main__':
         #projview(m, projection_type='hammer', graticule=True, graticule_labels=True)
         projview(m, projection_type='custom_hammer', graticule=True, graticule_labels=True)
         projview(m, projection_type='healpix', graticule=True, graticule_labels=True)
+        # For some reason, using plt.savefig really messes with the healpix
+        # projection
         plt.show()
 
