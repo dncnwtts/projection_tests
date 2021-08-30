@@ -84,7 +84,6 @@ class HealpixAxes(GeoAxes):
             longitude = x
             latitude = np.zeros_like(y)
             latitude[~poles] = np.arcsin(y[~poles]*H/(np.pi*K/2))
-            latitude = np.arcsin(y*H/(np.pi*K/2))
 
             sigma = (K+1)/2 - np.abs(y*H)/np.pi
             x_c = -np.pi + (2*np.floor((x+np.pi)*H/(2*np.pi) + (1-omega)/2) + omega)*np.pi/H
@@ -156,7 +155,7 @@ if __name__ == '__main__':
     ms = [m1, m2]
 
 
-    for m in ms:
+    for i, m in enumerate(ms):
         #projview(m, projection_type='mollweide', graticule=True,
             #graticule_labels=True)
         #projview(m, projection_type='hammer', graticule=True, graticule_labels=True)
