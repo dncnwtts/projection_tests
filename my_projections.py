@@ -75,21 +75,21 @@ class HealpixAxes(GeoAxes):
               omega = 0
             else:
               omega = 1
-            alpha = 3*np.pi/(2*H)
 
             y_x = np.pi/2*(K-1)/H
             cap = (y > y_x)
-            base = (y < y_x)
+            base = (y < -y_x)
             poles = (cap | base)
 
             longitude = x
             latitude = np.zeros_like(y)
-            latitude[~poles] = np.arcsin(y[~poles]/alpha)
+            latitude[~poles] = np.arcsin(y[~poles]*H/(np.pi*K/2))
+            latitude = np.arcsin(y*H/(np.pi*K/2))
 
             sigma = (K+1)/2 - np.abs(y*H)/np.pi
             x_c = -np.pi + (2*np.floor((x+np.pi)*H/(2*np.pi) + (1-omega)/2) + omega)*np.pi/H
 
-            longitude[poles] = (x_c + (x - x_c)/sigma**0.5)[poles]
+            longitude[poles] = (x_c + (x - x_c)/sigma)[poles]
 
             latitude[cap] = np.arcsin(1-sigma[cap]/K)
             latitude[base] = -np.arcsin(1-sigma[base]/K)
